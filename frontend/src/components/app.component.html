@@ -1,0 +1,23 @@
+<div class="app-container">
+  <div class="user-id-container">
+    <span class="user-id-label">User ID:</span>
+    <input
+      class="user-id-value"
+      type="text"
+      [(ngModel)]="userId"
+      placeholder="Enter User ID"
+    />
+    <button class="generate-btn" (click)="updateUserId()">✅ Set New ID</button>
+    <button class="generate-btn" (click)="generateNewUserId()">
+      🔄 Generate New ID
+    </button>
+  </div>
+  <div class="title-container">
+    <h1>📊 Expenditure Analyzer</h1>
+  </div>
+  <button class="page-toggle-button" (click)="togglePage()">
+    {{ isDashboard ? "📂 Transactions" : "📊 Dashboard" }}
+  </button>
+</div>
+
+<router-outlet></router-outlet>

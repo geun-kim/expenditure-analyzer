@@ -1,0 +1,172 @@
+<!-- Main Container with Sidebar and Content -->
+<div class="csv-container">
+  <!-- Filter Sidebar -->
+  <div class="filter-sidebar" [ngClass]="{ hidden: !showFilters }" @slideInOut>
+    <div class="sidebar-header">
+      <h3>🔍 Advanced Filters</h3>
+    </div>
+
+    <div class="sidebar-content">
+      <!-- Date Range Section -->
+      <div class="filter-section">
+        <h4>📅 Date Range</h4>
+        <div class="input-group">
+          <label>From:</label>
+          <input
+            type="date"
+            [(ngModel)]="filter.startDate"
+            (input)="applyFilters()"
+          />
+          <label>To:</label>
+          <input
+            type="date"
+            [(ngModel)]="filter.endDate"
+            (input)="applyFilters()"
+          />
+        </div>
+      </div>
+
+      <!-- Description Section -->
+      <div class="filter-section">
+        <h4>📝 Description</h4>
+        <input
+          type="text"
+          [(ngModel)]="filter.description"
+          (input)="applyFilters()"
+          placeholder="Search description"
+        />
+      </div>
+
+      <!-- Amount Range Section -->
+      <div class="filter-section">
+        <h4>💰 Amount Range</h4>
+        <div class="input-group">
+          <label>CAD:</label>
+          <input
+            type="number"
+            [(ngModel)]="filter.minCad"
+            (input)="applyFilters()"
+            placeholder="Min"
+          />
+          <input
+            type="number"
+            [(ngModel)]="filter.maxCad"
+            (input)="applyFilters()"
+            placeholder="Max"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>USD:</label>
+          <input
+            type="number"
+            [(ngModel)]="filter.minUsd"
+            (input)="applyFilters()"
+            placeholder="Min"
+          />
+          <input
+            type="number"
+            [(ngModel)]="filter.maxUsd"
+            (input)="applyFilters()"
+            placeholder="Max"
+          />
+        </div>
+      </div>
+
+      <div class="filter-section category-filter">
+        <h4>🏷️ Category</h4>
+        <div class="category-checkboxes">
+          <label *ngFor="let category of availableCategories">
+            <input
+              type="checkbox"
+              [value]="category"
+              (change)="toggleCategorySelection(category, $event)"
+              [checked]="filter.selectedCategories.includes(category)"
+            />
+            {{ category | titlecase }}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Footer Buttons -->
+    <div class="sidebar-footer">
+      <button class="reset-btn" (click)="resetFilters()">Reset</button>
+    </div>
+  </div>
+
+  <button class="bookmark-toggle" (click)="toggleSidebar()">
+    {{ showFilters ? "❮" : "❯" }}
+  </button>
+
+  <!-- Main Content Section (Table) -->
+  <div class="main-content" [ngClass]="{ expanded: !showFilters }">
+    <h1>Transaction Uploader</h1>
+
+    <!-- File Upload Input -->
+    <input type="file" (change)="onFileSelected($event)" accept=".csv" />
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Transaction Table -->
+    <div *ngIf="transactions.length > 0" class="transaction-table">
+      <h2>Transaction Records</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>CAD</th>
+            <th>USD</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let txn of pagedTransactions; let i = index">
+            <td>{{ i + 1 + currentPage * pageSize }}</td>
+            <td>{{ txn.transactionDate }}</td>
+            <td>{{ txn.description1 }} {{ txn.description2 }}</td>
+            <td>{{ txn.category | titlecase }}</td>
+            <td>{{ txn.cad | currency: "CAD" }}</td>
+            <td>{{ txn.usd | currency: "USD" }}</td>
+            <td>
+              <button
+                class="delete-btn"
+                (click)="deleteTransaction(txn.id)"
+                aria-label="Delete"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Total Amount -->
+      <div class="total-card">
+        <div class="total-label">💰 Total Spent (CAD):</div>
+        <div class="total-amount">{{ totalAmountCAD | currency: "CAD" }}</div>
+      </div>
+      <!-- Paginator -->
+      <mat-paginator
+        [length]="filteredTransactions.length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25, 50, 100]"
+        showFirstLastButtons
+        (page)="onPageChange($event)"
+      >
+      </mat-paginator>
+    </div>
+
+    <div *ngIf="!(transactions.length > 0)" class="transaction-table">
+      <h2>Transaction Records</h2>
+      <p>No records in the database</p>
+    </div>
+  </div>
+</div>

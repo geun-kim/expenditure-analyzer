@@ -1,0 +1,18 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "prestart": "npm run build",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node ../dist/backend/main"
+  },
+  "dependencies": {
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.11",
+    "@nestjs/typeorm": "^11.0.0",
+    "pg": "^8.13.3",
+    "typeorm": "^0.3.21"
+  }
+}

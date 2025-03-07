@@ -1,0 +1,139 @@
+<div class="dashboard-container">
+  <div class="left-panel">
+    <div class="category-manager">
+      <h2>🏷️ Manage Categories</h2>
+
+      <!-- Add New Category -->
+      <div>
+        <input
+          type="text"
+          [(ngModel)]="newCategory"
+          placeholder="Category Name"
+          aria-label="Category Name"
+        />
+
+        <input
+          type="text"
+          [(ngModel)]="newKeywords"
+          placeholder="Keywords (comma-separated)"
+          aria-label="Keywords"
+        />
+
+        <button class="add-btn" (click)="addOrUpdateCategory()">
+          ➕ Add / Update Category
+        </button>
+      </div>
+
+      <hr />
+
+      <div *ngIf="categoryKeywords as categories">
+        <h3>Existing Categories</h3>
+        <div
+          *ngFor="let category of categories | keyvalue"
+          class="category-item"
+        >
+          <div class="category-header">
+            <strong>{{ category.key | titlecase }}</strong>
+            <button class="delete-btn" (click)="deleteCategory(category.key)">
+              Delete
+            </button>
+          </div>
+
+          <div class="input-group">
+            <input
+              #keywords
+              type="text"
+              [value]="categoryKeywords[category.key]"
+              placeholder="Edit keywords (comma-separated)"
+              aria-label="Edit Keywords"
+            />
+            <button (click)="updateCategory(category.key, keywords.value)">
+              Update
+            </button>
+          </div>
+
+          <p>
+            <strong>Keywords:</strong>
+            {{ categoryKeywords[category.key].join(", ") }}
+          </p>
+        </div>
+      </div>
+      <div *ngIf="!(categoryKeys.length > 0)">
+        <p>No categories added yet. Start by adding one above!</p>
+      </div>
+    </div>
+
+    <div class="filter-sidebar">
+      <h3>🔍 Filter Insights</h3>
+
+      <!-- Date Range Filter -->
+      <div class="filter-group">
+        <label for="date-range">Date Range:</label>
+        <select
+          id="date-range"
+          [(ngModel)]="selectedDateRange"
+          (change)="updateChart()"
+        >
+          <option value="thisMonth">This Month</option>
+          <option value="last3Months">Last 3 Months</option>
+          <option value="thisYear">This Year</option>
+          <option value="custom">Custom Range</option>
+        </select>
+      </div>
+
+      <!-- Custom Date Range -->
+      <div *ngIf="selectedDateRange === 'custom'" class="filter-group">
+        <label>Start Date:</label>
+        <input
+          type="date"
+          [(ngModel)]="customStartDate"
+          (change)="updateChart()"
+        />
+
+        <label>End Date:</label>
+        <input
+          type="date"
+          [(ngModel)]="customEndDate"
+          (change)="updateChart()"
+        />
+      </div>
+
+      <!-- Category Filter -->
+      <div class="filter-group">
+        <label for="category">Category:</label>
+        <select
+          id="category"
+          [(ngModel)]="selectedCategory"
+          (change)="updateChart()"
+        >
+          <option value="all">All Categories</option>
+          <option
+            *ngFor="let category of categoryKeywords | keyvalue"
+            [value]="category.key"
+          >
+            {{ category.key | titlecase }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Reset Button -->
+      <button class="reset-button" (click)="resetFilters()">
+        🔄 Reset Filters
+      </button>
+    </div>
+  </div>
+
+  <div class="charts-container">
+    <div class="charts">
+      <div class="chart">
+        <h4>💰 Spending Breakdown</h4>
+        <canvas id="pieChart"></canvas>
+      </div>
+
+      <div class="chart">
+        <h4>{{ barChartTitle }}</h4>
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

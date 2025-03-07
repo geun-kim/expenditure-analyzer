@@ -1,0 +1,35 @@
+{
+  "name": "expenditure-analyzer",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "lint": "eslint . --ext .ts,.js --fix",
+    "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
+    "start": "npm run start --workspace=backend"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.2.1",
+    "@types/node": "^22.13.9",
+    "@types/papaparse": "^5.3.15",
+    "eslint": "^9.21.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "prettier": "^3.5.3",
+    "typescript": "^5.2.2",
+    "typescript-eslint": "^8.26.0"
+  },
+  "dependencies": {
+    "@angular/animations": "^19.2.1",
+    "@angular/material": "^19.2.2",
+    "@angular/platform-browser": "^19.2.1",
+    "@angular/platform-browser-dynamic": "^19.2.1",
+    "@angular/router": "^19.2.1",
+    "@nestjs/config": "^4.0.1",
+    "@nestjs/serve-static": "^5.0.3",
+    "chart.js": "^4.4.8",
+    "papaparse": "^5.5.2"
+  }
+}

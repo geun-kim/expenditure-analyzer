@@ -9,7 +9,8 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, "../../frontend/dist/frontend"),
+      rootPath: join(__dirname, "../dist/frontend"),
+      serveRoot: "/",
       exclude: ["/api*"],
     }),
     ConfigModule.forRoot(),

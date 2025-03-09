@@ -1,1 +1,1 @@
-# expenditure-analyzer
+# Expenditure Analyzer

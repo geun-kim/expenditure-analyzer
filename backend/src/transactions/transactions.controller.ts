@@ -7,6 +7,7 @@ import {
   Param,
   Patch,
   Query,
+  BadRequestException,
 } from "@nestjs/common";
 import { TransactionsService } from "./transactions.service";
 import { Transaction } from "../entities/transaction.entity";
@@ -24,6 +25,9 @@ export class TransactionsController {
 
   @Get()
   async findAll(@Query("userId") userId: string): Promise<Transaction[]> {
+    if (!userId) {
+      throw new BadRequestException("userId query param is required");
+    }
     return this.transactionsService.findAll(userId);
   }
 
@@ -32,6 +36,9 @@ export class TransactionsController {
     @Param("id") id: number,
     @Query("userId") userId: string,
   ): Promise<void> {
+    if (!userId) {
+      throw new BadRequestException("userId query param is required");
+    }
     await this.transactionsService.delete(id, userId);
   }
 

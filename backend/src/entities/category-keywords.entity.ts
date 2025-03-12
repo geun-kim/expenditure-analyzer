@@ -5,7 +5,7 @@ export class CategoryKeywords {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   category: string;
 
   @Column("text")

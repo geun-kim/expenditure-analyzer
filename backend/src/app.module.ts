@@ -17,13 +17,9 @@ import { TypeOrmModule } from "@nestjs/typeorm";
     TypeOrmModule.forRootAsync({
       useFactory: async () => ({
         type: "postgres",
-        host: process.env.DATABASE_HOST || "localhost",
-        port: parseInt(process.env.DATABASE_PORT || "5432", 10),
-        username: process.env.DATABASE_USER || "postgres",
-        password: process.env.DATABASE_PASSWORD || "password",
-        database: process.env.DATABASE_NAME || "expenditure_analyzer",
+        url: process.env.DATABASE_URL,
         autoLoadEntities: true,
-        synchronize: true, // Auto-create tables in development
+        synchronize: true,
       }),
     }),
     TransactionsModule,

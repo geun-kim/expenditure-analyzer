@@ -177,6 +177,7 @@ export class CsvUploaderComponent implements OnInit, OnDestroy {
         this.transactions = this.transactions.filter(
           (transaction) => transaction.id !== id,
         );
+        this.transactionStateService.setTransactions(this.transactions);
         this.applyFilters();
         this.calculateTotal();
         console.log(`Transaction with ID ${id} deleted successfully.`);

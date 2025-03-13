@@ -42,8 +42,10 @@ Continuous Deployment via GitHub
 
 1. Clone the Repository
 
+```
   git clone https://github.com/geun-kim/expenditure-analyzer.git
   cd expenditure-analyzer
+```
 
 2. Install Dependencies
 

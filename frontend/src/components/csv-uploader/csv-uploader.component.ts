@@ -205,12 +205,22 @@ export class CsvUploaderComponent implements OnInit, OnDestroy {
     this.filteredTransactions = this.transactions.filter((txn) => {
       // Date Range Filter
       const transactionDate = new Date(txn.transactionDate);
-      const startDate = this.filter.startDate
-        ? new Date(this.filter.startDate)
-        : null;
-      const endDate = this.filter.endDate
-        ? new Date(this.filter.endDate)
-        : null;
+      let startDate: Date | null = null;
+      let endDate: Date | null = null;
+
+      if (this.filter.startDate) {
+        const [startYear, startMonth, startDay] = this.filter.startDate
+          .split("-")
+          .map(Number);
+        startDate = new Date(startYear, startMonth - 1, startDay, 0, 0, 0, 0);
+      }
+
+      if (this.filter.endDate) {
+        const [endYear, endMonth, endDay] = this.filter.endDate
+          .split("-")
+          .map(Number);
+        endDate = new Date(endYear, endMonth - 1, endDay, 23, 59, 59, 999);
+      }
 
       if (startDate && transactionDate < startDate) return false;
       if (endDate && transactionDate > endDate) return false;

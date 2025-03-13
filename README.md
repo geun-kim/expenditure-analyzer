@@ -49,18 +49,24 @@ Continuous Deployment via GitHub
 
 2. Install Dependencies
 
+```
   npm install
+```
 
 3. Run Database
 
+```
   cd Backend
   docker-compose up -d
   cd ..
+```
 
 4. Run the Application Locally
 
+```
   npm run build 
   npm run start
+```
 
 The server will start on http://localhost:3000.
 

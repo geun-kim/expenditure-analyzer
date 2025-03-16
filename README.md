@@ -8,7 +8,7 @@ Note that since the app is deployed using free tier version of Render.com, it au
 
 ## Demo
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=vAH4b8e2WQs" frameborder="0" allowfullscreen></iframe>
+[![Watch the demo](https://img.youtube.com/vi/vAH4b8e2WQs/0.jpg)](https://www.youtube.com/watch?v=vAH4b8e2WQs)
 
 ## Features
 

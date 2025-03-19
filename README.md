@@ -4,7 +4,7 @@
 
 [Expenditure Analyzer](https://expenditure-analyzer-6teq.onrender.com/dashboard) is a web application designed to help users track and categorize their financial transactions. Users can upload CSV files containing transaction data, and the system will automatically categorize expenses based on predefined category keywords. The app provides a simple and intuitive interface to visualize spending habits.
 
-Note that since the app is deployed using free tier version of Render.com, it automatically goes into sleep mode after 15 minutes of inactivity. Therefore, it might take a few minutes when redirecting to the site since it's cold starting.
+**Importance Notice:** Since the app is deployed using free tier version of Render.com, it automatically goes into sleep mode after 15 minutes of inactivity. Therefore, it might take a few minutes when redirecting to the site since it's cold starting.
 
 ## Demo
 

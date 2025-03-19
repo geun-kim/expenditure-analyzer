@@ -138,7 +138,6 @@ export class CsvUploaderComponent implements OnInit, OnDestroy {
               this.transactionStateService.setTransactions(this.transactions);
               this.applyFilters();
               this.calculateTotal();
-              console.log("Transaction(s) saved.");
             },
           });
         });
@@ -180,7 +179,6 @@ export class CsvUploaderComponent implements OnInit, OnDestroy {
         this.transactionStateService.setTransactions(this.transactions);
         this.applyFilters();
         this.calculateTotal();
-        console.log(`Transaction with ID ${id} deleted successfully.`);
       },
       error: (error) => console.error("Error deleting transaction:", error),
     });
